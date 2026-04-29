@@ -1,0 +1,52 @@
+#!/bin/sh
+set -eu
+
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+if command -v swiftformat >/dev/null 2>&1; then
+    SWIFTFORMAT="$(command -v swiftformat)"
+elif [ -x /opt/homebrew/bin/swiftformat ]; then
+    SWIFTFORMAT="/opt/homebrew/bin/swiftformat"
+elif [ -x /usr/local/bin/swiftformat ]; then
+    SWIFTFORMAT="/usr/local/bin/swiftformat"
+else
+    echo "SwiftFormat is not installed. Install it with: brew install swiftformat" >&2
+    exit 1
+fi
+
+CONFIG="$ROOT/.swiftformat"
+if [ ! -f "$CONFIG" ]; then
+    echo "Missing SwiftFormat config at $CONFIG" >&2
+    exit 1
+fi
+
+TMP_FILE="${TMPDIR:-/tmp}/swiftformat-staged-$$"
+trap 'rm -f "$TMP_FILE"' EXIT HUP INT TERM
+
+git diff --cached --name-only --diff-filter=ACMR -- '*.swift' > "$TMP_FILE"
+if [ ! -s "$TMP_FILE" ]; then
+    exit 0
+fi
+
+UNSTAGED_CONFLICTS=""
+while IFS= read -r file; do
+    if ! git diff --quiet -- "$file"; then
+        UNSTAGED_CONFLICTS="$UNSTAGED_CONFLICTS
+$file"
+    fi
+done < "$TMP_FILE"
+
+if [ -n "$UNSTAGED_CONFLICTS" ]; then
+    echo "SwiftFormat pre-commit hook aborted." >&2
+    echo "These staged Swift files also have unstaged changes:" >&2
+    echo "$UNSTAGED_CONFLICTS" >&2
+    echo "Stage or stash those changes first so the hook does not stage unintended hunks." >&2
+    exit 1
+fi
+
+echo "Running SwiftFormat on staged Swift files..."
+while IFS= read -r file; do
+    "$SWIFTFORMAT" --config "$CONFIG" --quiet "$file"
+    git add "$file"
+done < "$TMP_FILE"
