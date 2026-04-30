@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run OpenMac",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "./Scripts/vscode-run.sh",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Debug OpenMac",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/.build/DerivedData/Build/Products/Debug/OpenMac.app/Contents/MacOS/OpenMac",
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "Build OpenMac",
+      "stopOnEntry": false
+    }
+  ]
+}
