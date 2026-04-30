@@ -28,5 +28,6 @@ struct OpenMacApp: App {
             ContentView()
         }
         .modelContainer(sharedModelContainer)
+        .windowStyle(.hiddenTitleBar)
     }
 }
