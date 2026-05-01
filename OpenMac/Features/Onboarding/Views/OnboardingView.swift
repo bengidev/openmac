@@ -13,7 +13,7 @@ struct OnboardingView: View {
             let size = proxy.size
             let horizontalPadding = max(34, min(58, size.width * 0.045))
             let verticalPadding = max(26, min(46, size.height * 0.048))
-            let heroHeight = max(350, size.height - verticalPadding * 2 - 200)
+            let heroHeight = max(460, size.height - verticalPadding * 2 - 200)
 
             ZStack {
                 OpenMacPalette.background
@@ -22,7 +22,7 @@ struct OnboardingView: View {
                 OpenMacBackgroundTexture()
                     .ignoresSafeArea()
 
-                VStack(spacing: 16) {
+                VStack(spacing: 20) {
                     OpenMacHeroCard()
                         .frame(maxWidth: .infinity)
                         .frame(height: heroHeight)

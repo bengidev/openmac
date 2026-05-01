@@ -63,7 +63,7 @@ struct OpenMacHeroCard: View {
                 .padding(.top, 28)
                 .accessibilityLabel("Get Started")
             }
-            .padding(.horizontal, 38)
+            .padding(.horizontal, 40)
         }
         .background(OpenMacPalette.surfacePrimary)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
