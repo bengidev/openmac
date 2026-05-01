@@ -20,6 +20,21 @@
       }
     },
     {
+      "label": "Stop OpenMac",
+      "type": "process",
+      "command": "${workspaceFolder}/Scripts/vscode-run.sh",
+      "args": ["--stop"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": false,
+        "panel": "dedicated",
+        "reveal": "silent"
+      }
+    },
+    {
       "label": "Build OpenMac",
       "type": "process",
       "command": "${workspaceFolder}/Scripts/vscode-run.sh",
@@ -34,6 +49,12 @@
         "panel": "dedicated",
         "reveal": "always"
       }
+    },
+    {
+      "label": "Prepare OpenMac Debug",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Stop OpenMac", "Build OpenMac"],
+      "problemMatcher": []
     },
     {
       "label": "Clean Build OpenMac",

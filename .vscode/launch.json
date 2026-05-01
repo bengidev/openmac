@@ -14,7 +14,8 @@
       "request": "launch",
       "program": "${workspaceFolder}/.build/DerivedData/Build/Products/Debug/OpenMac.app/Contents/MacOS/OpenMac",
       "cwd": "${workspaceFolder}",
-      "preLaunchTask": "Build OpenMac",
+      "preLaunchTask": "Prepare OpenMac Debug",
+      "postDebugTask": "Stop OpenMac",
       "stopOnEntry": false
     }
   ]
