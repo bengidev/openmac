@@ -10,7 +10,9 @@ DERIVED_DATA_PATH="${OPENMAC_DERIVED_DATA_PATH:-$ROOT/.build/DerivedData}"
 APP_NAME="${OPENMAC_APP_NAME:-OpenMac.app}"
 CLEAN=0
 BUILD_ONLY=0
+STOP_ONLY=0
 VERBOSE=0
+EXECUTABLE_NAME="${OPENMAC_EXECUTABLE_NAME:-${APP_NAME%.app}}"
 
 usage() {
   cat <<'EOF'
@@ -21,6 +23,7 @@ Build and launch the OpenMac macOS app from VS Code or a terminal.
 Options:
   --clean             Clean before building.
   --build-only        Build without launching the app.
+  --stop              Stop all running OpenMac app instances, then exit.
   --configuration N   Xcode configuration to build. Default: Debug.
   --destination D     Xcode destination. Default: platform=macOS.
   --verbose           Show full xcodebuild output. Default output is quiet.
@@ -33,7 +36,37 @@ Environment overrides:
   OPENMAC_DESTINATION
   OPENMAC_DERIVED_DATA_PATH
   OPENMAC_APP_NAME
+  OPENMAC_EXECUTABLE_NAME
 EOF
+}
+
+stop_running_app() {
+  local pids=""
+
+  pids="$(pgrep -x "$EXECUTABLE_NAME" 2>/dev/null || true)"
+  if [[ -z "$pids" ]]; then
+    return 0
+  fi
+
+  echo "==> Stopping running $EXECUTABLE_NAME instance(s): ${pids//$'\n'/ }"
+  kill $pids 2>/dev/null || true
+
+  for _ in {1..50}; do
+    pids="$(pgrep -x "$EXECUTABLE_NAME" 2>/dev/null || true)"
+    if [[ -z "$pids" ]]; then
+      return 0
+    fi
+    sleep 0.1
+  done
+
+  echo "==> Force stopping $EXECUTABLE_NAME instance(s)"
+  kill -9 $pids 2>/dev/null || true
+}
+
+on_exit_signal() {
+  echo "==> VS Code requested stop/disconnect; closing $EXECUTABLE_NAME"
+  stop_running_app
+  exit 130
 }
 
 while [[ $# -gt 0 ]]; do
@@ -44,6 +77,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --build-only)
       BUILD_ONLY=1
+      shift
+      ;;
+    --stop)
+      STOP_ONLY=1
       shift
       ;;
     --configuration)
@@ -69,6 +106,11 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+if [[ "$STOP_ONLY" -eq 1 ]]; then
+  stop_running_app
+  exit 0
+fi
 
 if ! command -v xcodebuild >/dev/null 2>&1; then
   echo "error: xcodebuild is required but was not found." >&2
@@ -112,5 +154,10 @@ if [[ "$BUILD_ONLY" -eq 1 ]]; then
   exit 0
 fi
 
+stop_running_app
+
 echo "==> Launching $APP_PATH"
-open -n "$APP_PATH"
+trap on_exit_signal INT TERM HUP
+open -n -W "$APP_PATH" &
+OPEN_PID=$!
+wait "$OPEN_PID"
