@@ -11,8 +11,8 @@ struct OnboardingView: View {
     var body: some View {
         GeometryReader { proxy in
             let size = proxy.size
-            let horizontalPadding = max(34, min(58, size.width * 0.045))
-            let verticalPadding = max(26, min(46, size.height * 0.048))
+            let horizontalPadding = max(15, min(25, size.width * 0.015))
+            let verticalPadding = max(10, min(20, size.height * 0.10))
             let heroHeight = max(460, size.height - verticalPadding * 2 - 200)
 
             ZStack {
@@ -54,7 +54,7 @@ struct OnboardingView: View {
             .frame(width: size.width, height: size.height)
             .clipped()
         }
-        .frame(minWidth: 980, minHeight: 640)
+        .frame(minWidth: 920, minHeight: 640)
         .preferredColorScheme(.dark)
     }
 }
