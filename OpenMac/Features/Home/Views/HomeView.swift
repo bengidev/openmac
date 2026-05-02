@@ -22,6 +22,13 @@ struct HomeView: View {
                             .padding(.vertical, 14)
                             .allowsHitTesting(false)
                     }
+
+                    TextEditor(text: $inputText)
+                        .font(.title3)
+                        .foregroundStyle(.primary)
+                        .scrollContentBackground(.hidden)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 10)
                 }
                 .frame(minHeight: 60, maxHeight: 160, alignment: .topLeading)
                 .background(.black.opacity(0.24), in: .rect(cornerRadius: 16))
