@@ -5,6 +5,7 @@
 //  Created by Bambang Tri Rahmat Doni on 02/05/26.
 //
 
+import AppKit
 import Darwin
 import Foundation
 import SwiftUI
@@ -165,9 +166,20 @@ struct WorkspaceView: View {
         isWorkspacePickerPresented = false
     }
 
+    @MainActor
     private func chooseWorkspaceDirectory() {
-        workspaceSearchText = ""
-        isWorkspacePickerPresented = false
+        let panel = NSOpenPanel()
+        panel.title = "Choose Workspace"
+        panel.prompt = "Choose"
+        panel.message = "Select a folder to use as the current workspace."
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = false
+        panel.directoryURL = selectedWorkspaceURL ?? Self.defaultWorkspaceDirectoryURL
+
+        guard panel.runModal() == .OK, let workspaceURL = panel.url else { return }
+
+        selectWorkspace(workspaceURL)
     }
 }
 
