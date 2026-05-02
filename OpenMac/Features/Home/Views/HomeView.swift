@@ -8,12 +8,23 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var inputText = ""
+
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 22) {
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(.black.opacity(0.24))
-                    .frame(minHeight: 60, maxHeight: 160)
+                ZStack(alignment: .topLeading) {
+                    if inputText.isEmpty {
+                        Text("Ask Anything...")
+                            .font(.title3)
+                            .foregroundStyle(.secondary)
+                            .padding(.horizontal, 18)
+                            .padding(.vertical, 14)
+                            .allowsHitTesting(false)
+                    }
+                }
+                .frame(minHeight: 60, maxHeight: 160, alignment: .topLeading)
+                .background(.black.opacity(0.24), in: .rect(cornerRadius: 16))
 
                 HStack(spacing: 12) {
                     Spacer(minLength: 0)
