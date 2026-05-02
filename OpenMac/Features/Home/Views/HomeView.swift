@@ -10,6 +10,10 @@ import SwiftUI
 struct HomeView: View {
     @State private var inputText = ""
 
+    private var hasInputText: Bool {
+        inputText.contains { !$0.isWhitespace }
+    }
+
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 22) {
@@ -101,8 +105,9 @@ struct HomeView: View {
                 ],
                 beamBlur: 15,
                 cornerRadius: 20,
-                isEnabled: true
+                isEnabled: !hasInputText
             )
+            .animation(.easeInOut(duration: 0.18), value: hasInputText)
         }
         .padding()
         .frame(minWidth: 920, minHeight: 640)
