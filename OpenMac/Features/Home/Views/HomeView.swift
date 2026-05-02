@@ -50,6 +50,8 @@ struct HomeView: View {
                     }
                     .buttonStyle(.plain)
 
+                    WorkspaceView()
+
                     Spacer(minLength: 0)
 
                     Group {
