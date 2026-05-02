@@ -27,6 +27,7 @@ struct HomeView: View {
                         .font(.title3)
                         .foregroundStyle(.primary)
                         .scrollContentBackground(.hidden)
+                        .scrollIndicators(.hidden)
                         .padding(.horizontal, 14)
                         .padding(.vertical, 10)
                 }
