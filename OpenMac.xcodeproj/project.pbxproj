@@ -29,9 +29,32 @@
 		B6F4AB1B2FA20049008703D6 /* OpenMacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenMacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B6DC2A712FA5AF6B0033C29D /* Exceptions for "OpenMac" folder in "OpenMacTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Features/Home/Views/BorderBeamEffect.swift,
+				Features/Home/Views/HomeView.swift,
+			);
+			target = B6F4AB102FA20049008703D6 /* OpenMacTests */;
+		};
+		B6DC2A722FA5AF6B0033C29D /* Exceptions for "OpenMac" folder in "OpenMacUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Features/Home/Views/BorderBeamEffect.swift,
+				Features/Home/Views/HomeView.swift,
+			);
+			target = B6F4AB1A2FA20049008703D6 /* OpenMacUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B6F4AB042FA20048008703D6 /* OpenMac */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B6DC2A712FA5AF6B0033C29D /* Exceptions for "OpenMac" folder in "OpenMacTests" target */,
+				B6DC2A722FA5AF6B0033C29D /* Exceptions for "OpenMac" folder in "OpenMacUITests" target */,
+			);
 			path = OpenMac;
 			sourceTree = "<group>";
 		};
