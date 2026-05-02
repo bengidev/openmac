@@ -72,7 +72,13 @@ struct HomeView: View {
                         .borderBeam(
                             border: .primary,
                             hideFadeBorder: false,
-                            beam: [.green, .blue, .pink, .orange, .indigo],
+                            beam: [
+                                OpenMacPalette.accentShadow,
+                                OpenMacPalette.primaryAccent,
+                                OpenMacPalette.accentGlow,
+                                OpenMacPalette.liquidLava,
+                                OpenMacPalette.accentShadow,
+                            ],
                             beamBlur: 15,
                             cornerRadius: 20
                         )
@@ -86,7 +92,13 @@ struct HomeView: View {
             .borderBeam(
                 border: .primary,
                 hideFadeBorder: false,
-                beam: [.green, .blue, .pink, .orange, .indigo],
+                beam: [
+                    OpenMacPalette.accentShadow,
+                    OpenMacPalette.primaryAccent,
+                    OpenMacPalette.accentGlow,
+                    OpenMacPalette.liquidLava,
+                    OpenMacPalette.accentShadow,
+                ],
                 beamBlur: 15,
                 cornerRadius: 20,
                 isEnabled: true
