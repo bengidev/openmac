@@ -5,13 +5,24 @@
 //  Created by Bambang Tri Rahmat Doni on 02/05/26.
 //
 
+import Foundation
 import SwiftUI
 
 struct HomeView: View {
+    @AppStorage("home.selectedWorkspacePath") private var selectedWorkspacePath = WorkspaceView.defaultWorkspaceDirectoryURL.path
+
     @State private var inputText = ""
 
     private var hasInputText: Bool {
         inputText.contains { !$0.isWhitespace }
+    }
+
+    private var selectedWorkspaceDirectoryName: String {
+        guard !selectedWorkspacePath.isEmpty else { return "No Project" }
+
+        let workspaceURL = URL(fileURLWithPath: selectedWorkspacePath)
+        let name = workspaceURL.lastPathComponent
+        return name.isEmpty ? workspaceURL.path : name
     }
 
     var body: some View {
