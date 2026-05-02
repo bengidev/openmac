@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct OpenMacHeroCard: View {
+    var onGetStarted: () -> Void = {}
+
     var body: some View {
         ZStack {
             OpenMacLavaGradient()
@@ -45,7 +47,7 @@ struct OpenMacHeroCard: View {
                     .lineSpacing(4)
                     .padding(.top, 22)
 
-                Button(action: {}) {
+                Button(action: onGetStarted) {
                     Text("Get Started")
                         .font(.system(size: 14, weight: .semibold, design: .rounded))
                         .foregroundStyle(OpenMacPalette.background)
