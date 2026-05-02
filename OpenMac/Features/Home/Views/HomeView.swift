@@ -68,6 +68,14 @@ struct HomeView: View {
                         } label: {
                             Image(systemName: "arrow.up")
                         }
+                        .frame(width: 35, height: 35)
+                        .borderBeam(
+                            border: .primary,
+                            hideFadeBorder: false,
+                            beam: [.green, .blue, .pink, .orange, .indigo],
+                            beamBlur: 15,
+                            cornerRadius: 20
+                        )
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
