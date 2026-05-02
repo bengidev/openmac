@@ -5,12 +5,31 @@
 //  Created by Bambang Tri Rahmat Doni on 02/05/26.
 //
 
+import Darwin
 import Foundation
 import SwiftUI
 
 struct WorkspaceView: View {
     private static var defaultWorkspaceDirectoryURL: URL {
-        FileManager.default.homeDirectoryForCurrentUser
+        if
+            let passwordEntry = getpwuid(getuid()),
+            let homeDirectory = passwordEntry.pointee.pw_dir,
+            let homePath = String(validatingUTF8: homeDirectory),
+            !homePath.isEmpty
+        {
+            return URL(fileURLWithPath: homePath, isDirectory: true)
+        }
+
+        let fallbackHomeURL = FileManager.default.homeDirectoryForCurrentUser
+        if
+            fallbackHomeURL.lastPathComponent == "Data",
+            let containerRange = fallbackHomeURL.path.range(of: "/Library/Containers/")
+        {
+            let userHomePath = String(fallbackHomeURL.path[..<containerRange.lowerBound])
+            return URL(fileURLWithPath: userHomePath, isDirectory: true)
+        }
+
+        return fallbackHomeURL
     }
 
     @AppStorage("home.selectedWorkspacePath") private var selectedWorkspacePath = WorkspaceView.defaultWorkspaceDirectoryURL.path
