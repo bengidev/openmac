@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    var onGetStarted: () -> Void = {}
+
     var body: some View {
         GeometryReader { proxy in
             let size = proxy.size
@@ -23,7 +25,7 @@ struct OnboardingView: View {
                     .ignoresSafeArea()
 
                 VStack(spacing: 20) {
-                    OpenMacHeroCard()
+                    OpenMacHeroCard(onGetStarted: onGetStarted)
                         .frame(maxWidth: .infinity)
                         .frame(height: heroHeight)
 
