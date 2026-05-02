@@ -47,6 +47,29 @@ struct HomeView: View {
                     .buttonStyle(.plain)
 
                     Spacer(minLength: 0)
+
+                    Group {
+                        Button {
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+
+                        Button {
+                        } label: {
+                            Image(systemName: "cloud")
+                        }
+
+                        Button {
+                        } label: {
+                            Image(systemName: "mic")
+                        }
+
+                        Button {
+                        } label: {
+                            Image(systemName: "arrow.up")
+                        }
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
             .padding(18)
