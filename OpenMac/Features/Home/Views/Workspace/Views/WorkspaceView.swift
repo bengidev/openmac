@@ -57,8 +57,8 @@ struct WorkspaceView: View {
 
         return uniqueWorkspaceURLs(
             [Self.defaultWorkspaceDirectoryURL]
-                + storedURLs
-                + [selectedWorkspaceURL].compactMap { $0 }
+                + storedURLs.filter { !isDiscardedInitialWorkspace($0) }
+                + [selectedWorkspaceURL].compactMap { $0 }.filter { !isDiscardedInitialWorkspace($0) }
         )
     }
 
@@ -94,6 +94,9 @@ struct WorkspaceView: View {
         }
         .accessibilityLabel("Working directory")
         .accessibilityValue(workingDirectoryName)
+        .onAppear {
+            normalizeSelectedWorkspaceIfNeeded()
+        }
     }
 
     private func uniqueWorkspaceURLs(_ urls: [URL]) -> [URL] {
@@ -108,8 +111,34 @@ struct WorkspaceView: View {
         }
     }
 
-    private func selectWorkspace(_ workspaceURL: URL) {
+    private func isDiscardedInitialWorkspace(_ workspaceURL: URL) -> Bool {
         let path = workspaceURL.standardizedFileURL.path
+        return path == "/"
+            || (workspaceURL.lastPathComponent == "Data" && path.contains("/Library/Containers/"))
+    }
+
+    private func normalizeSelectedWorkspaceIfNeeded() {
+        if let selectedWorkspaceURL, isDiscardedInitialWorkspace(selectedWorkspaceURL) {
+            selectedWorkspacePath = Self.defaultWorkspaceDirectoryURL.standardizedFileURL.path
+        }
+
+        let trackedURLs = trackedWorkspacePathsStorage
+            .split(separator: "\n")
+            .map { URL(fileURLWithPath: String($0)) }
+            .filter { !isDiscardedInitialWorkspace($0) }
+
+        let cleanedStorage = uniqueWorkspaceURLs(trackedURLs)
+            .map(\.standardizedFileURL.path)
+            .joined(separator: "\n")
+
+        if cleanedStorage != trackedWorkspacePathsStorage {
+            trackedWorkspacePathsStorage = cleanedStorage
+        }
+    }
+
+    private func selectWorkspace(_ workspaceURL: URL) {
+        let normalizedURL = isDiscardedInitialWorkspace(workspaceURL) ? Self.defaultWorkspaceDirectoryURL : workspaceURL
+        let path = normalizedURL.standardizedFileURL.path
         selectedWorkspacePath = path
         trackWorkspacePath(path)
         workspaceSearchText = ""
@@ -124,6 +153,7 @@ struct WorkspaceView: View {
         let uniquePaths = uniqueWorkspaceURLs(
             trackedPaths.map { URL(fileURLWithPath: $0) } + [URL(fileURLWithPath: path)]
         )
+        .filter { !isDiscardedInitialWorkspace($0) }
         .map(\.standardizedFileURL.path)
 
         trackedWorkspacePathsStorage = uniquePaths.joined(separator: "\n")
