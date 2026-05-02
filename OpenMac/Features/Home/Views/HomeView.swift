@@ -35,6 +35,17 @@ struct HomeView: View {
                 .background(.black.opacity(0.24), in: .rect(cornerRadius: 16))
 
                 HStack(spacing: 12) {
+                    Button {
+                    } label: {
+                        Text("Name/Model Name")
+                            .font(.caption)
+                            .foregroundStyle(Color.primary.opacity(0.82))
+                            .padding(.vertical, 9)
+                            .padding(.horizontal, 16)
+                            .background(.white.opacity(0.08), in: .capsule)
+                    }
+                    .buttonStyle(.plain)
+
                     Spacer(minLength: 0)
                 }
             }
