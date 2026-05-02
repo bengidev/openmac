@@ -11,7 +11,7 @@ import Foundation
 import SwiftUI
 
 struct WorkspaceView: View {
-    private static var defaultWorkspaceDirectoryURL: URL {
+    static var defaultWorkspaceDirectoryURL: URL {
         if
             let passwordEntry = getpwuid(getuid()),
             let homeDirectory = passwordEntry.pointee.pw_dir,
