@@ -43,6 +43,16 @@ struct WorkspaceView: View {
         )
     }
 
+    private var filteredWorkspaceURLs: [URL] {
+        let query = workspaceSearchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else { return trackedWorkspaceURLs }
+
+        return trackedWorkspaceURLs.filter { workspaceURL in
+            workspaceURL.lastPathComponent.localizedCaseInsensitiveContains(query)
+                || workspaceURL.path.localizedCaseInsensitiveContains(query)
+        }
+    }
+
     var body: some View {
         Button {
             isWorkspacePickerPresented.toggle()
@@ -56,7 +66,7 @@ struct WorkspaceView: View {
         .popover(isPresented: $isWorkspacePickerPresented, arrowEdge: .bottom) {
             WorkspacePickerView(
                 searchText: $workspaceSearchText,
-                workspaceURLs: trackedWorkspaceURLs,
+                workspaceURLs: filteredWorkspaceURLs,
                 selectedWorkspaceURL: selectedWorkspaceURL,
                 selectWorkspace: selectWorkspace,
                 chooseWorkspaceDirectory: chooseWorkspaceDirectory,
