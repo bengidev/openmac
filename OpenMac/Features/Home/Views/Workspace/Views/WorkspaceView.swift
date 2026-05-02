@@ -9,15 +9,25 @@ import Foundation
 import SwiftUI
 
 struct WorkspaceView: View {
+    private static var defaultWorkspaceDirectoryURL: URL {
+        FileManager.default.homeDirectoryForCurrentUser
+    }
+
+    @AppStorage("home.selectedWorkspacePath") private var selectedWorkspacePath = WorkspaceView.defaultWorkspaceDirectoryURL.path
+
     @State private var isWorkspacePickerPresented = false
     @State private var workspaceSearchText = ""
 
     private var selectedWorkspaceURL: URL? {
-        nil
+        guard !selectedWorkspacePath.isEmpty else { return nil }
+        return URL(fileURLWithPath: selectedWorkspacePath)
     }
 
     private var workingDirectoryName: String {
-        "No Project"
+        guard let selectedWorkspaceURL else { return "No Project" }
+
+        let name = selectedWorkspaceURL.lastPathComponent
+        return name.isEmpty ? selectedWorkspaceURL.path : name
     }
 
     var body: some View {
@@ -33,7 +43,7 @@ struct WorkspaceView: View {
         .popover(isPresented: $isWorkspacePickerPresented, arrowEdge: .bottom) {
             WorkspacePickerView(
                 searchText: $workspaceSearchText,
-                workspaceURLs: [],
+                workspaceURLs: [selectedWorkspaceURL].compactMap { $0 },
                 selectedWorkspaceURL: selectedWorkspaceURL,
                 selectWorkspace: selectWorkspace,
                 chooseWorkspaceDirectory: chooseWorkspaceDirectory,
@@ -44,12 +54,14 @@ struct WorkspaceView: View {
         .accessibilityValue(workingDirectoryName)
     }
 
-    private func selectWorkspace(_: URL) {
+    private func selectWorkspace(_ workspaceURL: URL) {
+        selectedWorkspacePath = workspaceURL.standardizedFileURL.path
         workspaceSearchText = ""
         isWorkspacePickerPresented = false
     }
 
     private func clearWorkspace() {
+        selectedWorkspacePath = ""
         workspaceSearchText = ""
         isWorkspacePickerPresented = false
     }
