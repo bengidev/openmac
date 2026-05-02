@@ -27,6 +27,22 @@ struct HomeView: View {
 
     var body: some View {
         VStack {
+            (
+                Text("What should we work on in ")
+                    .font(.system(size: 34, weight: .regular, design: .default))
+                    + Text(selectedWorkspaceDirectoryName)
+                    .font(.system(size: 34, weight: .regular, design: .monospaced))
+                    .italic()
+                    + Text("?")
+                    .font(.system(size: 34, weight: .regular, design: .serif))
+            )
+            .tracking(1.4)
+            .foregroundStyle(Color.white.opacity(0.86))
+            .multilineTextAlignment(.center)
+            .minimumScaleFactor(0.75)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.bottom, 28)
+
             VStack(alignment: .leading, spacing: 22) {
                 ZStack(alignment: .topLeading) {
                     if inputText.isEmpty {
