@@ -14,6 +14,7 @@ struct WorkspaceView: View {
     }
 
     @AppStorage("home.selectedWorkspacePath") private var selectedWorkspacePath = WorkspaceView.defaultWorkspaceDirectoryURL.path
+    @AppStorage("home.trackedWorkspacePaths") private var trackedWorkspacePathsStorage = ""
 
     @State private var isWorkspacePickerPresented = false
     @State private var workspaceSearchText = ""
@@ -30,6 +31,18 @@ struct WorkspaceView: View {
         return name.isEmpty ? selectedWorkspaceURL.path : name
     }
 
+    private var trackedWorkspaceURLs: [URL] {
+        let storedURLs = trackedWorkspacePathsStorage
+            .split(separator: "\n")
+            .map { URL(fileURLWithPath: String($0)) }
+
+        return uniqueWorkspaceURLs(
+            [Self.defaultWorkspaceDirectoryURL]
+                + storedURLs
+                + [selectedWorkspaceURL].compactMap { $0 }
+        )
+    }
+
     var body: some View {
         Button {
             isWorkspacePickerPresented.toggle()
@@ -43,7 +56,7 @@ struct WorkspaceView: View {
         .popover(isPresented: $isWorkspacePickerPresented, arrowEdge: .bottom) {
             WorkspacePickerView(
                 searchText: $workspaceSearchText,
-                workspaceURLs: [selectedWorkspaceURL].compactMap { $0 },
+                workspaceURLs: trackedWorkspaceURLs,
                 selectedWorkspaceURL: selectedWorkspaceURL,
                 selectWorkspace: selectWorkspace,
                 chooseWorkspaceDirectory: chooseWorkspaceDirectory,
@@ -54,10 +67,37 @@ struct WorkspaceView: View {
         .accessibilityValue(workingDirectoryName)
     }
 
+    private func uniqueWorkspaceURLs(_ urls: [URL]) -> [URL] {
+        var seenPaths = Set<String>()
+
+        return urls.filter { url in
+            let path = url.standardizedFileURL.path
+            guard !seenPaths.contains(path) else { return false }
+
+            seenPaths.insert(path)
+            return true
+        }
+    }
+
     private func selectWorkspace(_ workspaceURL: URL) {
-        selectedWorkspacePath = workspaceURL.standardizedFileURL.path
+        let path = workspaceURL.standardizedFileURL.path
+        selectedWorkspacePath = path
+        trackWorkspacePath(path)
         workspaceSearchText = ""
         isWorkspacePickerPresented = false
+    }
+
+    private func trackWorkspacePath(_ path: String) {
+        let trackedPaths = trackedWorkspacePathsStorage
+            .split(separator: "\n")
+            .map(String.init)
+
+        let uniquePaths = uniqueWorkspaceURLs(
+            trackedPaths.map { URL(fileURLWithPath: $0) } + [URL(fileURLWithPath: path)]
+        )
+        .map(\.standardizedFileURL.path)
+
+        trackedWorkspacePathsStorage = uniquePaths.joined(separator: "\n")
     }
 
     private func clearWorkspace() {
