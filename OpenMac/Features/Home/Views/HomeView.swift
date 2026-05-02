@@ -78,10 +78,19 @@ struct HomeView: View {
                         )
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .padding(.horizontal, 10)
                 }
             }
             .padding(18)
             .background(.gray.opacity(0.1), in: .rect(cornerRadius: 24))
+            .borderBeam(
+                border: .primary,
+                hideFadeBorder: false,
+                beam: [.green, .blue, .pink, .orange, .indigo],
+                beamBlur: 15,
+                cornerRadius: 20,
+                isEnabled: true
+            )
         }
         .padding()
         .frame(minWidth: 920, minHeight: 640)
