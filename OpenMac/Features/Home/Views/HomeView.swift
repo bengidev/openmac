@@ -84,8 +84,10 @@ struct HomeView: View {
                                 OpenMacPalette.accentShadow,
                             ],
                             beamBlur: 15,
-                            cornerRadius: 20
+                            cornerRadius: 20,
+                            isEnabled: hasInputText
                         )
+                        .animation(.easeInOut(duration: 0.18), value: hasInputText)
                     }
                     .buttonStyle(PlainButtonStyle())
                     .padding(.horizontal, 10)
