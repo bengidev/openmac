@@ -10,9 +10,21 @@ import SwiftData
 
 @main
 struct OpenMacApp: App {
+    @State private var isShowingHome = false
+
     var body: some Scene {
         WindowGroup {
-            OnboardingView()
+            Group {
+                if isShowingHome {
+                    HomeView()
+                } else {
+                    OnboardingView {
+                        withAnimation(.easeInOut(duration: 0.28)) {
+                            isShowingHome = true
+                        }
+                    }
+                }
+            }
         }
     }
 }
