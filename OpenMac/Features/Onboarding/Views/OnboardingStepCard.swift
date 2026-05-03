@@ -28,7 +28,7 @@ struct OnboardingStepCard: View {
                 OnboardingStepIcon(symbolName: symbolName)
 
                 Text(title)
-                    .font(.system(size: 20, weight: .regular, design: .serif))
+                    .font(.system(size: 16, weight: .regular, design: .serif))
                     .foregroundStyle(OpenMacPalette.textPrimary.opacity(0.96))
                     .lineLimit(1)
                     .minimumScaleFactor(0.82)
