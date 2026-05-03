@@ -24,7 +24,7 @@ struct OnboardingStepCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .center, spacing: 12) {
+            HStack(alignment: .top, spacing: 8) {
                 OnboardingStepIcon(symbolName: symbolName)
 
                 Text(title)
