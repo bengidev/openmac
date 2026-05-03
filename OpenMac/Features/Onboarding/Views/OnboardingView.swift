@@ -30,8 +30,7 @@ struct OnboardingView: View {
                         .frame(height: heroHeight)
 
                     HStack(spacing: 16) {
-                        OpenMacStepCard(
-                            number: "01",
+                        OnboardingStepCard(
                             title: "Connect your content",
                             description: "Bring in notes, files, links, and daily context so OpenMac can understand your workspace."
                         )
