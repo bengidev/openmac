@@ -52,6 +52,11 @@ struct OnboardingView: View {
                             title: "Voice mode",
                             description: "Talk to Codex with speech-to-text"
                         )
+                        OnboardingStepCard(
+                            symbolName: "network",
+                            title: "Subagents, skills and /commands",
+                            description: "Spawn and monitor parallel agents from your phone"
+                        )
                     }
                     .frame(height: 132)
                 }
