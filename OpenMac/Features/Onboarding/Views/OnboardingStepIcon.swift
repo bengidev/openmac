@@ -15,11 +15,22 @@ struct OnboardingStepIcon: View {
     }
 
     var body: some View {
-        stepSymbol
-            .font(.system(size: 17, weight: .semibold))
-            .symbolRenderingMode(.monochrome)
-            .foregroundStyle(OpenMacPalette.primaryAccent)
-            .accessibilityHidden(true)
+        ZStack {
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(OpenMacPalette.surfacePrimary.opacity(0.76))
+                .frame(width: 34, height: 34)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .stroke(OpenMacPalette.primaryAccent.opacity(0.20), lineWidth: 1)
+                }
+
+            stepSymbol
+                .font(.system(size: 17, weight: .semibold))
+                .symbolRenderingMode(.monochrome)
+                .foregroundStyle(OpenMacPalette.primaryAccent)
+        }
+        .shadow(color: OpenMacPalette.primaryAccent.opacity(0.16), radius: 10, x: 0, y: 4)
+        .accessibilityHidden(true)
     }
 
     @ViewBuilder
