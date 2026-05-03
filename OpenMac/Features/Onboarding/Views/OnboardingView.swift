@@ -31,8 +31,9 @@ struct OnboardingView: View {
 
                     HStack(spacing: 10) {
                         OnboardingStepCard(
-                            title: "Connect your content",
-                            description: "Bring in notes, files, links, and daily context so OpenMac can understand your workspace."
+                            symbolName: "hare.fill",
+                            title: "Fast mode",
+                            description: "Lower-latency turns for quick interactions"
                         )
 
                         OnboardingStepCard(
