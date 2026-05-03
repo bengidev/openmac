@@ -62,3 +62,13 @@ struct OnboardingStepCard: View {
         .shadow(color: .black.opacity(0.20), radius: 16, x: 0, y: 10)
     }
 }
+
+#Preview("Onboarding Step Card") {
+    OpenMacComponentPreviewContainer {
+        OnboardingStepCard(
+            title: "Connect your content",
+            description: "Bring in notes, files, links, and daily context so OpenMac can understand your workspace."
+        )
+        .frame(width: 320, height: 138)
+    }
+}
