@@ -37,8 +37,9 @@ struct OnboardingView: View {
                         )
 
                         OnboardingStepCard(
-                            title: "Train and customize",
-                            description: "Shape tone, shortcuts, and preferences into a digital mind that works like you do."
+                            symbolName: "arrow.triangle.branch",
+                            title: "Git from your phone",
+                            description: "Commit, push, pull, and switch branches"
                         )
 
                         OnboardingStepCard(
