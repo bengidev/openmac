@@ -24,14 +24,8 @@ struct OnboardingStepCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            HStack(alignment: .center, spacing: 10) {
-                Text(symbolName)
-                    .font(.system(size: 12, weight: .bold, design: .rounded))
-                    .foregroundStyle(OpenMacPalette.background)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 5)
-                    .background(OpenMacPalette.primaryAccent)
-                    .clipShape(Capsule())
+            HStack(alignment: .center, spacing: 12) {
+                OnboardingStepIcon(symbolName: symbolName)
 
                 Text(title)
                     .font(.system(size: 20, weight: .regular, design: .serif))
