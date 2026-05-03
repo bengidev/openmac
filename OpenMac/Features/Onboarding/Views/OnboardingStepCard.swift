@@ -40,6 +40,7 @@ struct OnboardingStepCard: View {
                 .font(.system(size: 13, weight: .medium, design: .rounded))
                 .foregroundStyle(OpenMacPalette.textPrimary.opacity(0.62))
                 .lineSpacing(4)
+                .lineLimit(3)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .padding(22)
