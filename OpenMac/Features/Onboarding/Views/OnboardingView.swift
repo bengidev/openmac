@@ -43,8 +43,9 @@ struct OnboardingView: View {
                         )
 
                         OnboardingStepCard(
-                            title: "Use it everywhere",
-                            description: "Start from your Mac, then extend the same memory and workflow across every surface."
+                            symbolName: "lock.shield.fill",
+                            title: "End-to-end encrypted",
+                            description: "The relay never sees your prompts or code"
                         )
                     }
                     .frame(height: 132)
