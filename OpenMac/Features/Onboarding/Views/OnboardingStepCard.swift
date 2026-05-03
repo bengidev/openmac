@@ -30,8 +30,10 @@ struct OnboardingStepCard: View {
                 Text(title)
                     .font(.system(size: 16, weight: .regular, design: .serif))
                     .foregroundStyle(OpenMacPalette.textPrimary.opacity(0.96))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.82)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.6)
+                    .allowsTightening(true)
+                    .layoutPriority(1)
             }
 
             Text(description)
