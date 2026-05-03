@@ -8,14 +8,24 @@
 import SwiftUI
 
 struct OnboardingStepCard: View {
-    let number: String
+    let symbolName: String
     let title: String
     let description: String
+
+    init(
+        symbolName: String = "apple.intelligence",
+        title: String,
+        description: String
+    ) {
+        self.symbolName = symbolName
+        self.title = title
+        self.description = description
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             HStack(alignment: .center, spacing: 10) {
-                Text(number)
+                Text(symbolName)
                     .font(.system(size: 12, weight: .bold, design: .rounded))
                     .foregroundStyle(OpenMacPalette.background)
                     .padding(.horizontal, 8)
