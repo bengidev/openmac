@@ -29,7 +29,7 @@ struct OnboardingView: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: heroHeight)
 
-                    HStack(spacing: 16) {
+                    HStack(spacing: 10) {
                         OnboardingStepCard(
                             title: "Connect your content",
                             description: "Bring in notes, files, links, and daily context so OpenMac can understand your workspace."
