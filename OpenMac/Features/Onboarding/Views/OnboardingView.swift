@@ -35,8 +35,7 @@ struct OnboardingView: View {
                             description: "Bring in notes, files, links, and daily context so OpenMac can understand your workspace."
                         )
 
-                        OpenMacStepCard(
-                            number: "02",
+                        OnboardingStepCard(
                             title: "Train and customize",
                             description: "Shape tone, shortcuts, and preferences into a digital mind that works like you do."
                         )
