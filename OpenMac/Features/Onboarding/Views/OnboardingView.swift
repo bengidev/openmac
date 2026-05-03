@@ -47,6 +47,11 @@ struct OnboardingView: View {
                             title: "End-to-end encrypted",
                             description: "The relay never sees your prompts or code"
                         )
+                        OnboardingStepCard(
+                            symbolName: "waveform",
+                            title: "Voice mode",
+                            description: "Talk to Codex with speech-to-text"
+                        )
                     }
                     .frame(height: 132)
                 }
