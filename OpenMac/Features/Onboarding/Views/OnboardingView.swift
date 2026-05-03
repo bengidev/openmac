@@ -15,7 +15,7 @@ struct OnboardingView: View {
             let size = proxy.size
             let horizontalPadding = max(15, min(25, size.width * 0.015))
             let verticalPadding = max(10, min(20, size.height * 0.10))
-            let heroHeight = max(460, size.height - verticalPadding * 2 - 200)
+            let heroHeight = max(420, size.height - verticalPadding * 2 - 200)
 
             ZStack {
                 OpenMacPalette.background
