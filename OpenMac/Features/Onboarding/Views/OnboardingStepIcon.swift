@@ -42,3 +42,9 @@ struct OnboardingStepIcon: View {
         }
     }
 }
+
+#Preview("Onboarding Step Icon") {
+    OpenMacComponentPreviewContainer {
+        OnboardingStepIcon()
+    }
+}
