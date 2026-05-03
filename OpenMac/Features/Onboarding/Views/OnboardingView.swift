@@ -40,8 +40,7 @@ struct OnboardingView: View {
                             description: "Shape tone, shortcuts, and preferences into a digital mind that works like you do."
                         )
 
-                        OpenMacStepCard(
-                            number: "03",
+                        OnboardingStepCard(
                             title: "Use it everywhere",
                             description: "Start from your Mac, then extend the same memory and workflow across every surface."
                         )
