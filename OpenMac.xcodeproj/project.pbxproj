@@ -33,7 +33,7 @@
 		B6DC2A712FA5AF6B0033C29D /* Exceptions for "OpenMac" folder in "OpenMacTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Features/Home/Views/BorderBeamEffect.swift,
+				Shared/Views/BorderBeamEffect.swift,
 				Features/Home/Views/HomeView.swift,
 			);
 			target = B6F4AB102FA20049008703D6 /* OpenMacTests */;
@@ -41,7 +41,7 @@
 		B6DC2A722FA5AF6B0033C29D /* Exceptions for "OpenMac" folder in "OpenMacUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Features/Home/Views/BorderBeamEffect.swift,
+				Shared/Views/BorderBeamEffect.swift,
 				Features/Home/Views/HomeView.swift,
 			);
 			target = B6F4AB1A2FA20049008703D6 /* OpenMacUITests */;
