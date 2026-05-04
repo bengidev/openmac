@@ -85,6 +85,18 @@ struct OpenMacHeroCard: View {
                 )
         }
         .shadow(color: .black.opacity(0.36), radius: 30, x: 0, y: 20)
+        .concentricRectangle(
+            count: 3,
+            spacing: 3,
+            cornerRadius: 20,
+            lineWidth: 0.8,
+            colors: [
+                OpenMacPalette.primaryAccent.opacity(0.35),
+                OpenMacPalette.accentGlow.opacity(0.22),
+                OpenMacPalette.liquidLava.opacity(0.12),
+            ],
+            animate: false
+        )
         .accessibilityElement(children: .contain)
     }
 }
