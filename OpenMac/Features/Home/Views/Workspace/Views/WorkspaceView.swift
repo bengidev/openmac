@@ -83,7 +83,7 @@ struct WorkspaceView: View {
             )
         }
         .buttonStyle(.plain)
-        .popover(isPresented: $isWorkspacePickerPresented, arrowEdge: .bottom) {
+        .popover(isPresented: $isWorkspacePickerPresented) {
             WorkspacePickerView(
                 searchText: $workspaceSearchText,
                 workspaceURLs: filteredWorkspaceURLs,
