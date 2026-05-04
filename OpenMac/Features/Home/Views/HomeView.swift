@@ -10,11 +10,16 @@ import SwiftUI
 
 struct HomeView: View {
     @AppStorage("home.selectedWorkspacePath") private var selectedWorkspacePath = WorkspaceView.defaultWorkspaceDirectoryURL.path
+    @AppStorage("home.selectedProviderID") private var selectedProviderID = AIProvider.allDefaults[0].id
 
     @State private var inputText = ""
 
     private var hasInputText: Bool {
         inputText.contains { !$0.isWhitespace }
+    }
+
+    private var selectedProvider: AIProvider {
+        AIProvider.allDefaults.first { $0.id == selectedProviderID } ?? .allDefaults[0]
     }
 
     private var selectedWorkspaceDirectoryName: String {
@@ -66,16 +71,13 @@ struct HomeView: View {
                 .background(.black.opacity(0.24), in: .rect(cornerRadius: 16))
 
                 HStack(spacing: 12) {
-                    Button {
-                    } label: {
-                        Text("Name/Model Name")
-                            .font(.caption)
-                            .foregroundStyle(Color.primary.opacity(0.82))
-                            .padding(.vertical, 9)
-                            .padding(.horizontal, 16)
-                            .background(.white.opacity(0.08), in: .capsule)
-                    }
-                    .buttonStyle(.plain)
+                    AIProviderPickerView(
+                        selectedProvider: Binding(
+                            get: { selectedProvider },
+                            set: { newProvider in selectedProviderID = newProvider.id }
+                        ),
+                        providers: AIProvider.allDefaults
+                    )
 
                     WorkspaceView()
 
@@ -124,6 +126,18 @@ struct HomeView: View {
             }
             .padding(18)
             .background(.gray.opacity(0.1), in: .rect(cornerRadius: 24))
+            .concentricRectangle(
+                count: 3,
+                spacing: 3,
+                cornerRadius: 24,
+                lineWidth: 0.6,
+                colors: [
+                    OpenMacPalette.primaryAccent.opacity(0.20),
+                    OpenMacPalette.accentGlow.opacity(0.12),
+                    OpenMacPalette.liquidLava.opacity(0.08),
+                ],
+                animate: false
+            )
             .borderBeam(
                 border: .primary,
                 hideFadeBorder: false,
