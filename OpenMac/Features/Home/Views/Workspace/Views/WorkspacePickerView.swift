@@ -51,7 +51,7 @@ struct WorkspacePickerView: View {
         }
         .padding(10)
         .frame(width: 270)
-        .background(.black.opacity(0.88), in: .rect(cornerRadius: 16))
+        .background(.black, in: .rect(cornerRadius: 16))
     }
 }
 
