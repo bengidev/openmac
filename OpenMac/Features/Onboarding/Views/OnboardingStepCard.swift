@@ -63,6 +63,17 @@ struct OnboardingStepCard: View {
                 .stroke(OpenMacPalette.hairline.opacity(0.58), lineWidth: 1)
         }
         .shadow(color: .black.opacity(0.20), radius: 16, x: 0, y: 10)
+        .concentricRectangle(
+            count: 2,
+            spacing: 2,
+            cornerRadius: 16,
+            lineWidth: 0.6,
+            colors: [
+                OpenMacPalette.primaryAccent.opacity(0.18),
+                OpenMacPalette.accentGlow.opacity(0.10),
+            ],
+            animate: false
+        )
     }
 }
 
