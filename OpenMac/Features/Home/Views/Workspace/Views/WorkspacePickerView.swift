@@ -21,15 +21,18 @@ struct WorkspacePickerView: View {
         VStack(alignment: .leading, spacing: 8) {
             WorkspaceSearchField(searchText: $searchText)
 
-            VStack(alignment: .leading, spacing: 2) {
-                ForEach(workspaceURLs, id: \.standardizedFileURL.path) { workspaceURL in
-                    WorkspaceRowView(
-                        workspaceURL: workspaceURL,
-                        selectedWorkspaceURL: selectedWorkspaceURL,
-                        selectWorkspace: selectWorkspace
-                    )
+            ScrollView {
+                VStack(alignment: .leading, spacing: 2) {
+                    ForEach(workspaceURLs, id: \.standardizedFileURL.path) { workspaceURL in
+                        WorkspaceRowView(
+                            workspaceURL: workspaceURL,
+                            selectedWorkspaceURL: selectedWorkspaceURL,
+                            selectWorkspace: selectWorkspace
+                        )
+                    }
                 }
             }
+            .frame(maxHeight: 260)
 
             Divider()
                 .overlay(.white.opacity(0.08))
