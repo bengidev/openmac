@@ -92,6 +92,7 @@ struct WorkspaceView: View {
                 chooseWorkspaceDirectory: chooseWorkspaceDirectory,
                 clearWorkspace: clearWorkspace
             )
+            .fixedSize()
         }
         .accessibilityLabel("Working directory")
         .accessibilityValue(workingDirectoryName)
