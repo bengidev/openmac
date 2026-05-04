@@ -52,6 +52,17 @@ struct WorkspacePickerView: View {
         .padding(10)
         .frame(width: 270)
         .background(.black, in: .rect(cornerRadius: 16))
+        .concentricRectangle(
+            count: 2,
+            spacing: 2,
+            cornerRadius: 16,
+            lineWidth: 0.5,
+            colors: [
+                OpenMacPalette.primaryAccent.opacity(0.16),
+                OpenMacPalette.accentGlow.opacity(0.08),
+            ],
+            animate: false
+        )
     }
 }
 
